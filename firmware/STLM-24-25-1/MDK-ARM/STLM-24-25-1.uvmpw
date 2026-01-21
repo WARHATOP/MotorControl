@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ProjectWorkspace xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_workspace.xsd">
+  <SchemaVersion>1.0</SchemaVersion>
+  <Header>### uVision Project, (C) Keil Software</Header>
+  <Workspace>
+    <Name>STLM-24-25-1</Name>
+    <ProjectList>
+      <Project>
+        <Path>STLM-24-25-1.uvprojx</Path>
+      </Project>
+    </ProjectList>
+  </Workspace>
+</ProjectWorkspace>
