@@ -40,6 +40,20 @@ const initialEdges: LogicEdge[] = [
   { id: 'e3', source: 'or-1', sourceHandle: 'out', target: 'lamp-1', targetHandle: 'in' },
 ];
 
+/** Ширина, ниже которой раскладка считается телефонной. */
+const NARROW_SCREEN = 720;
+
+/**
+ * Панель и мини-карта висят поверх холста, поэтому `fitView` должен оставить
+ * им место. На телефоне панель занимает всю ширину и уходит наверх, а
+ * мини-карта прячется — отступы соответственно другие.
+ */
+function fitViewPadding() {
+  return window.innerWidth < NARROW_SCREEN
+    ? ({ top: '190px', right: '16px', bottom: '80px', left: '16px' } as const)
+    : ({ top: '40px', right: '60px', bottom: '160px', left: '300px' } as const);
+}
+
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState<LogicNode>(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState<LogicEdge>(initialEdges);
@@ -110,9 +124,7 @@ function Flow() {
       onConnect={onConnect}
       isValidConnection={isValidConnection}
       fitView
-      // Слева панель, снизу-справа мини-карта — оставляем им место, чтобы
-      // fitView не заводил узлы под оверлеи.
-      fitViewOptions={{ padding: { left: '300px', right: '60px', top: '40px', bottom: '160px' } }}
+      fitViewOptions={{ padding: fitViewPadding() }}
       proOptions={{ hideAttribution: false }}
     >
       <Background variant={BackgroundVariant.Dots} gap={22} size={1.6} color="#4b2f6b" />

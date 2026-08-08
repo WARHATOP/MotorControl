@@ -260,6 +260,36 @@ body {
   color: var(--hw-slime);
 }
 
+/* ---------- телефон ---------- */
+
+@media (max-width: 720px) {
+  .hw-panel {
+    /* Панель растягивается на всю ширину: узкая колонка слева на телефоне
+       отъедала бы половину холста. */
+    width: calc(100vw - 24px);
+    padding: 10px 12px;
+  }
+
+  .hw-panel__hint {
+    margin: 6px 0 10px;
+  }
+
+  .hw-panel__row button {
+    /* Пальцу нужна цель побольше, чем курсору. */
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  /* Мини-карта на маленьком экране только мешает — холст и так виден целиком. */
+  .react-flow__minimap {
+    display: none;
+  }
+
+  .hw-node {
+    min-width: 124px;
+  }
+}
+
 /* ---------- вписываем встроенный UI React Flow в тему ---------- */
 
 .react-flow__controls-button {
