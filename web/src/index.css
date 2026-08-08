@@ -1,0 +1,284 @@
+:root {
+  --hw-bg: #120a1e;
+  --hw-bg-2: #1c0f2e;
+  --hw-ink: #f4ecff;
+  --hw-muted: #a08fc0;
+  --hw-orange: #ff8a1f;
+  --hw-orange-soft: #ffb45c;
+  --hw-line: #4a3b63;
+  --hw-slime: #7dff8a;
+
+  color-scheme: dark;
+  font-family: 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: radial-gradient(circle at 30% 10%, #2a1440 0%, var(--hw-bg) 55%, #08040f 100%);
+  color: var(--hw-ink);
+}
+
+/* ---------- общий каркас узла ---------- */
+
+.hw-node {
+  min-width: 140px;
+  padding: 12px 14px;
+  border: 2px solid var(--hw-line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, var(--hw-bg-2), #150b24);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+  text-align: center;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.hw-node.is-on {
+  border-color: var(--hw-orange);
+  box-shadow: 0 0 22px rgba(255, 138, 31, 0.45), 0 10px 24px rgba(0, 0, 0, 0.55);
+}
+
+.hw-node__title {
+  margin-bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hw-muted);
+}
+
+.hw-handle {
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--hw-bg);
+  background: var(--hw-orange);
+}
+
+/* ---------- кнопка ---------- */
+
+.hw-switch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 10px 8px;
+  border: 2px solid var(--hw-line);
+  border-radius: 10px;
+  background: #241338;
+  color: var(--hw-ink);
+  font: inherit;
+  cursor: pointer;
+  transition: background 160ms ease, transform 80ms ease;
+}
+
+.hw-switch:hover {
+  background: #31194b;
+}
+
+.hw-switch:active {
+  transform: translateY(1px);
+}
+
+.hw-button.is-on .hw-switch {
+  border-color: var(--hw-orange);
+  background: #3d2110;
+}
+
+.hw-switch__icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.hw-switch__state {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--hw-muted);
+}
+
+.hw-button.is-on .hw-switch__state {
+  color: var(--hw-orange-soft);
+}
+
+/* ---------- логическое ИЛИ ---------- */
+
+.hw-or {
+  min-width: 120px;
+}
+
+.hw-or__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: 74px;
+  border: 2px solid var(--hw-line);
+  border-radius: 8px 34px 34px 8px;
+  background: #221037;
+}
+
+.hw-or.is-on .hw-or__body {
+  border-color: var(--hw-orange);
+  background: #3a1f14;
+}
+
+.hw-or__sign {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--hw-ink);
+}
+
+.hw-or__caption {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  color: var(--hw-muted);
+}
+
+/* ---------- лампа ---------- */
+
+.hw-lamp__glass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #1b0f2b;
+  border: 2px solid var(--hw-line);
+  transition: background 200ms ease, box-shadow 200ms ease;
+}
+
+.hw-lamp__pumpkin {
+  font-size: 40px;
+  filter: grayscale(0.85) brightness(0.55);
+  transition: filter 200ms ease;
+}
+
+.hw-lamp.is-on .hw-lamp__glass {
+  background: radial-gradient(circle, rgba(255, 180, 92, 0.35), rgba(255, 138, 31, 0.05) 70%);
+  border-color: var(--hw-orange);
+  box-shadow: 0 0 34px rgba(255, 138, 31, 0.65);
+  animation: hw-flicker 2.2s infinite ease-in-out;
+}
+
+.hw-lamp.is-on .hw-lamp__pumpkin {
+  filter: none;
+}
+
+.hw-lamp__state {
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--hw-muted);
+}
+
+.hw-lamp.is-on .hw-lamp__state {
+  color: var(--hw-orange-soft);
+}
+
+@keyframes hw-flicker {
+  0%,
+  100% {
+    box-shadow: 0 0 34px rgba(255, 138, 31, 0.65);
+  }
+  45% {
+    box-shadow: 0 0 22px rgba(255, 138, 31, 0.4);
+  }
+  60% {
+    box-shadow: 0 0 40px rgba(255, 180, 92, 0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-lamp.is-on .hw-lamp__glass {
+    animation: none;
+  }
+}
+
+/* ---------- панель ---------- */
+
+.hw-panel {
+  width: 260px;
+  padding: 14px;
+  border: 1px solid var(--hw-line);
+  border-radius: 12px;
+  background: rgba(18, 10, 30, 0.92);
+  backdrop-filter: blur(4px);
+}
+
+.hw-panel__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--hw-orange);
+}
+
+.hw-panel__hint {
+  margin: 8px 0 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--hw-muted);
+}
+
+.hw-panel__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hw-panel__row button {
+  padding: 6px 10px;
+  border: 1px solid var(--hw-line);
+  border-radius: 8px;
+  background: #241338;
+  color: var(--hw-ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.hw-panel__row button:hover {
+  border-color: var(--hw-orange);
+  color: var(--hw-orange-soft);
+}
+
+.hw-panel__status {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--hw-muted);
+}
+
+.hw-panel__status b {
+  color: var(--hw-slime);
+}
+
+/* ---------- вписываем встроенный UI React Flow в тему ---------- */
+
+.react-flow__controls-button {
+  border-bottom: 1px solid var(--hw-line);
+  background: #241338;
+  fill: var(--hw-ink);
+}
+
+.react-flow__controls-button:hover {
+  background: #31194b;
+}
+
+.react-flow__minimap {
+  background: rgba(18, 10, 30, 0.9);
+  border: 1px solid var(--hw-line);
+  border-radius: 8px;
+}
+
+.react-flow__attribution {
+  background: transparent;
+  color: var(--hw-line);
+}
